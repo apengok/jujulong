@@ -57,14 +57,8 @@ INSTALLED_APPS = [
     'mptt',
     'import_export',
     'accounts',
-    'legacy',
-    'entm',
-    'gis',
-    'dmam',
-    'django_apscheduler',
-    'monitor',
-    'analysis',
-    'reports',
+    'product',
+    
     
 ]
 
@@ -74,7 +68,7 @@ AUTHENTICATION_BACKENDS = (
     # 'guardian.backends.ObjectPermissionBackend',
 )
 
-X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8080/'
+# X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8080/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,12 +80,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'scadadma.urls'
+ROOT_URLCONF = 'jujulong.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates"),os.path.join(BASE_DIR,"echarts","map","province")],
+        'DIRS': [os.path.join(BASE_DIR,"templates"),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,11 +99,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'scadadma.wsgi.application'
+WSGI_APPLICATION = 'jujulong.wsgi.application'
 
 # IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-# ASGI_APPLICATION = "scadadma.routing.application"
+# ASGI_APPLICATION = "jujulong.routing.application"
 
 # Database
 # yum install mysql mysql-devel mysql-lib
@@ -163,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.MyUser' #change buikld-in user model to us
+AUTH_USER_MODEL = 'accounts.UserProfile' #change buikld-in user model to us
 # AUTH_GROUP_MODEL = 'accounts.MyRoles'
 
 LOGIN_URL = '/login/'
@@ -188,8 +182,8 @@ USE_TZ = False
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 #add geospatial something
-GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
-GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
+# GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+# GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -199,7 +193,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
-    os.path.join(BASE_DIR,"echarts","map","province"),
+    # os.path.join(BASE_DIR,"echarts","map","province"),
 ]
 
 MEDIA_URL = '/media/'
