@@ -3,7 +3,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Goods, Category
+from .models import Goods, Category,Color,Size,Brand
 
 
 # Register your models here.
@@ -14,7 +14,7 @@ class GoodsAdmin(admin.ModelAdmin):
     list_display = ['category', 'name', 'cost_price', 'price', 'count', 'status']
     list_display_links = ('name',)
     list_filter = ('category', 'status', 'is_abort',)
-    fields = ('category', 'name', 'keywords', 'image', 'details', ('count', 'sales_count'),
+    fields = ('category','brand','color','size', 'name', 'keywords', 'image', 'details', ('count', 'sales_count'),
               ('market_price', 'cost_price', 'price'),
               ('is_show_sales_count', 'has_invoice', 'cannot_refund', 'no_search'), 'status')
 
@@ -67,3 +67,6 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Goods, GoodsAdmin)
 admin.site.register(Category, CategoryAdmin)
+admin.site.register(Color)
+admin.site.register(Size)
+admin.site.register(Brand)

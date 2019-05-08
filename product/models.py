@@ -34,6 +34,21 @@ class Category(MPTTModel):
         return self.name
 
 
+class Brand(models.Model):
+    name        = models.CharField(max_length=500, verbose_name='品牌名称')
+    place       = models.CharField(max_length=500, verbose_name='产地')
+    website     = models.CharField(max_length=500, verbose_name='官网')
+    description = models.CharField(max_length=500, verbose_name='品牌介绍')
+
+    class Meta:
+        managed = True
+        db_table = 'brand'
+        verbose_name = '品牌'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
 class Color(models.Model):
     name = models.CharField(max_length=100, verbose_name='颜色')
     description = models.CharField(max_length=100)
@@ -41,6 +56,8 @@ class Color(models.Model):
     class Meta:
         managed = True
         db_table = 'productcolor'
+        verbose_name = '颜色'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.name
@@ -54,6 +71,8 @@ class Size(models.Model):
     class Meta:
         managed = True
         db_table = 'productsize'
+        verbose_name = '型号'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return "{}{}".format(self.size,self.cup)
@@ -66,6 +85,7 @@ class Goods(models.Model):
 
     category    = models.ForeignKey(Category, verbose_name='分类', null=True, blank=True,on_delete=models.CASCADE,
                                  limit_choices_to={'is_abort': False})
+    brand       = models.ForeignKey(Brand,verbose_name='品牌',null=True,blank=True,on_delete=models.SET_NULL)
     color       = models.ForeignKey(Color,verbose_name='颜色',null=True,blank=True,on_delete=models.SET_NULL)
     size        = models.ForeignKey(Size,verbose_name='型号',null=True,blank=True,on_delete=models.SET_NULL)
     name        = models.CharField(max_length=500, verbose_name='产品名称')

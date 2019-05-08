@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.db import connections
 
-from product.models import (Category,Goods,Color,Size)
+from product.models import (Category,Goods,Color,Size,Brand)
 
 import time
 import datetime
@@ -59,19 +59,19 @@ class Command(BaseCommand):
         )        
 
         parser.add_argument(
-            '--delete',
+            '--brand',
             action='store_true',
-            dest='delete',
+            dest='brand',
             default=False,
-            help='delete repeted data'
+            help='brand repeted data'
         )    
 
         parser.add_argument(
-            '--realtime',
+            '--category',
             action='store_true',
-            dest='realtime',
+            dest='category',
             default=False,
-            help='realtime repeted data'
+            help='category repeted data'
         )        
 
         parser.add_argument(
@@ -109,12 +109,45 @@ class Command(BaseCommand):
         
         t1=time.time()
         count = 0
+        if options['category']:
+            init_category(**options)
+        if options['brand']:
+            init_brand(**options)
         if options['color']:
             init_color(**options)
+        if options['size']:
+            init_size(**options)
 
+        print('Finished')
+
+
+def init_category(**options):
+    
+    categories = ['内衣','内裤','袜子','塑身衣','其他']
+
+    
+
+    all_categories = [{'name':c,'sort':n} for n,c in enumerate(categories,start=1)]
+
+    added_list = []
+    for c in all_categories:
+        Category.objects.create(**c)
+
+    if len(added_list) > 0:
+        Category.objects.bulk_create(added_list)
+
+    
         
 
-# 按月同步数据
+def init_brand(**options):
+    BRA,UNDERWEAR,SOCKS,SLIMMING,OTHER = range(1,6)
+    brand = [(BRA,'金薇'),(BRA,'林夕梦'),(BRA,'歌瑞森'),(SLIMMING,'幸福狐狸'),(UNDERWEAR,'维也纳的秘密'),(SOCKS,'0.18'),(OTHER,'正姿护眼笔')]
+
+    added_list = []
+    for k,v in brand:
+        Brand.objects.create(name=v)
+
+# 初始化产品颜色
 def init_color(**options):
     all_colors = [
         {'name':'黑色','description':'black'},
@@ -133,5 +166,25 @@ def init_color(**options):
 
     if len(added_list)>0:
         Color.objects.bulk_create(added_list)
+
+
+
+             
+# 初始化产品size
+def init_size(**options):
+    size = ['70','75','80','85','90','95']
+    cups  = ['A','B','C','D','E']
+    others = []
+    all_bra_sizes = [{'size':s,'cup':c} for s in size for c in cups]
+    # print(all_bra_sizes)
+    
+
+    added_list = []
+
+    for c in all_bra_sizes:
+        added_list.append(Size(**c))
+
+    if len(added_list)>0:
+        Size.objects.bulk_create(added_list)
 
              

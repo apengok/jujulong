@@ -57,24 +57,7 @@ INSTALLED_APPS = [
     'mptt',
     'import_export',
     'accounts',
-    'legacy',
-    
-    'prodschedule',
-    'monitor',
-    'analysis',
-    'alarm',
-    'baseanalys',
-    'gis',
-    'entm',
-    'devm',
-    'dmam',
-    'reports',
-    'sysm',
-    'django_apscheduler',
-    'wirelessm',
-    'shexian',
-    'django_extensions',
-    
+    'product',
 ]
 
 
@@ -83,7 +66,7 @@ AUTHENTICATION_BACKENDS = (
     # 'guardian.backends.ObjectPermissionBackend',
 )
 
-X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8082/'
+# X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8082/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,7 +78,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'waterwork.urls'
+ROOT_URLCONF = 'jujulong.urls'
 
 TEMPLATES = [
     {
@@ -114,11 +97,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'waterwork.wsgi.application'
+WSGI_APPLICATION = 'jujulong.wsgi.application'
 
 # IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-# ASGI_APPLICATION = "waterwork.routing.application"
+# ASGI_APPLICATION = "jujulong.routing.application"
 
 # Database
 # yum install mysql mysql-devel mysql-lib
@@ -126,45 +109,12 @@ WSGI_APPLICATION = 'waterwork.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'virvo_dev2.db'),
-    # },
-    'default': { 
-        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
-        'NAME': 'waterwork',
-        'USER': 'scada',
-        'PASSWORD': 'scada',
-        'HOST': 'localhost',    #120.78.255.129 192.168.197.134
-        'PORT': '3306',
-        'STORAGE_ENGINE': 'INNODB',
-        'OPTIONS': {'charset': 'utf8mb4'},
-        'TEST_CHARSET': 'utf8mb4',
-    },
-    'zncb': {
-        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
-        'NAME': 'zncb',
-        'USER': 'scada',
-        'PASSWORD': 'scada',
-        'HOST': 'localhost',  #120.78.255.129   220.179.118.150--shexian
-        'PORT': '3306',
-        'OPTIONS':{
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
-            # 'charset':'utf8mb4',
-        }
-    },
-    'shexian': {
-        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
-        'NAME': 'zncb',
-        'USER': 'scada',
-        'PASSWORD': 'scada',
-        'HOST': '220.179.118.150',  #120.78.255.129   220.179.118.150--shexian
-        'PORT': '3306',
-        'OPTIONS':{
-            'init_command':"SET sql_mode='STRICT_TRANS_TABLES'",
-            # 'charset':'utf8mb4',
-        }
-    },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+    
+    
     # 'gis': { http://120.78.255.129
     #     'ENGINE': 'django.contrib.gis.db.backends.postgis',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
     #     'NAME': 'scada',
@@ -175,7 +125,7 @@ DATABASES = {
     # },
 }
 
-DATABASE_ROUTERS = ['legacy.routers.LegacyRouter', ]
+# DATABASE_ROUTERS = ['legacy.routers.LegacyRouter', ]
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -195,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.User' #change buikld-in user model to us
+AUTH_USER_MODEL = 'accounts.UserProfile' #change buikld-in user model to us
 # AUTH_GROUP_MODEL = 'accounts.MyRoles'
 
 LOGIN_URL = '/login/'
@@ -220,8 +170,8 @@ USE_TZ = False
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 #add geospatial something
-GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
-GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
+# GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+# GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -231,7 +181,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
-    os.path.join(BASE_DIR,"echarts","map","province"),
+    # os.path.join(BASE_DIR,"echarts","map","province"),
 ]
 
 MEDIA_URL = '/media/'
