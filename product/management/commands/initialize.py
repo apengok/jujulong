@@ -98,11 +98,19 @@ class Command(BaseCommand):
         )
 
         parser.add_argument(
-            '--syncbigmeter',
+            '--addgoods',
             action='store_true',
-            dest='syncbigmeter',
+            dest='addgoods',
             default=False,
-            help='syncbigmeter  data'
+            help='addgoods  data'
+        )  
+
+        parser.add_argument(
+            '--all',
+            action='store_true',
+            dest='all',
+            default=False,
+            help='all  data'
         )  
 
     def handle(self, *args, **options):
@@ -116,6 +124,13 @@ class Command(BaseCommand):
         if options['color']:
             init_color(**options)
         if options['size']:
+            init_size(**options)
+        if options['addgoods']:
+            add_goods(**options)
+        if options['all']:
+            init_category(**options)
+            init_brand(**options)
+            init_color(**options)
             init_size(**options)
 
         print('Finished')
@@ -188,3 +203,53 @@ def init_size(**options):
         Size.objects.bulk_create(added_list)
 
              
+def add_goods(**options):
+    all_goods = [
+        {'category':'内衣','brand':'金薇','color':'黑色','size':'70A'},
+        {'category':'内衣','brand':'林夕梦','color':'粉色','size':'75B'},
+        {'category':'内衣','brand':'歌瑞森','color':'红色','size':'80C'},
+        {'category':'内裤','brand':'维也纳的秘密','color':'青色','size':'XXL'},
+        {'category':'袜子','brand':'0.18','color':'白色','size':'22-26cm'},
+        {'category':'塑身衣','brand':'幸福狐狸','color':'黑色','size':'S'},
+        {'category':'其他','brand':'正姿护眼笔','color':'混合色','size':'S'},
+    ]
+
+    for g in all_goods:
+        c = g['category']
+        b = g['brand']
+        r = g['color']
+        s = g['size']
+        try:
+            category = Category.objects.get(name=c)
+        except:
+            category = Category.objects.cerate(name=c)
+
+        try:
+            brand = Brand.objects.get(name=b)
+        except:
+            brand = Brand.objects.create(name=b)
+
+        try:
+            color = Color.objects.get(name=r)
+        except:
+            color = Color.objects.create(name=r)
+
+        try:
+            size = Size.objects.get(size=s)
+        except:
+            size = Size.objects.create(size=s)
+
+        
+        good = {
+            'category':category,
+            'brand':brand,
+            'color':color,
+            'size':size,
+            'name':"{}-{}-{}-{}".format(c,b,r,s),
+            'status':0,
+        }
+
+        try:
+            Goods.objects.create(**good)
+        except Exception as e:
+            print(e)

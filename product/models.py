@@ -35,10 +35,11 @@ class Category(MPTTModel):
 
 
 class Brand(models.Model):
+    # category    = models.ForeignKey(Category, verbose_name='分类', null=True, blank=True,on_delete=models.CASCADE)
     name        = models.CharField(max_length=500, verbose_name='品牌名称')
-    place       = models.CharField(max_length=500, verbose_name='产地')
-    website     = models.CharField(max_length=500, verbose_name='官网')
-    description = models.CharField(max_length=500, verbose_name='品牌介绍')
+    place       = models.CharField(max_length=500, verbose_name='产地', null=True, blank=True)
+    website     = models.CharField(max_length=500, verbose_name='官网', null=True, blank=True)
+    description = models.TextField(verbose_name='品牌介绍', null=True, blank=True)
 
     class Meta:
         managed = True
@@ -51,7 +52,7 @@ class Brand(models.Model):
 
 class Color(models.Model):
     name = models.CharField(max_length=100, verbose_name='颜色')
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         managed = True
@@ -65,8 +66,8 @@ class Color(models.Model):
 
 class Size(models.Model):
     size    = models.CharField(max_length=100, verbose_name='型号')
-    cup     = models.CharField(max_length=100, verbose_name='罩杯')
-    others  = models.CharField(max_length=100, verbose_name='罩杯')
+    cup     = models.CharField(max_length=100, verbose_name='罩杯', null=True, blank=True)
+    others  = models.CharField(max_length=100, verbose_name='其他', null=True, blank=True)
 
     class Meta:
         managed = True
@@ -75,7 +76,10 @@ class Size(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return "{}{}".format(self.size,self.cup)
+        cup = self.cup
+        if self.cup is None:
+            cup = ''
+        return "{}{}".format(self.size,cup)
 
 class Goods(models.Model):
     STATUS_CHOICES = (
@@ -88,14 +92,14 @@ class Goods(models.Model):
     brand       = models.ForeignKey(Brand,verbose_name='品牌',null=True,blank=True,on_delete=models.SET_NULL)
     color       = models.ForeignKey(Color,verbose_name='颜色',null=True,blank=True,on_delete=models.SET_NULL)
     size        = models.ForeignKey(Size,verbose_name='型号',null=True,blank=True,on_delete=models.SET_NULL)
-    name        = models.CharField(max_length=500, verbose_name='产品名称')
-    unit        = models.CharField(max_length=100, verbose_name='单位')
-    keywords    = models.CharField(max_length=200, verbose_name='关键词')
-    image       = models.ImageField(upload_to='product/%Y/%m', verbose_name='产品图片')
-    barcode     = models.CharField(max_length=100, verbose_name='条码')
-    price       = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='售价')
-    market_price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='市场价')
-    cost_price  = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='成本价')
+    name        = models.CharField(max_length=500, verbose_name='产品名称', null=True, blank=True)
+    unit        = models.CharField(max_length=100, verbose_name='单位', null=True, blank=True)
+    keywords    = models.CharField(max_length=200, verbose_name='关键词', null=True, blank=True)
+    image       = models.ImageField(upload_to='product/%Y/%m', verbose_name='产品图片', null=True, blank=True)
+    barcode     = models.CharField(max_length=100, verbose_name='条码', null=True, blank=True)
+    price       = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='售价', null=True, blank=True)
+    market_price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='市场价', null=True, blank=True)
+    cost_price  = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='成本价', null=True, blank=True)
     count       = models.IntegerField(default=0, verbose_name='库存')
     sales_count = models.IntegerField(default=0, verbose_name='售出数量')
     is_show_sales_count = models.BooleanField(default=False, verbose_name='显示销量')
@@ -106,7 +110,7 @@ class Goods(models.Model):
     cannot_refund = models.BooleanField(default=False, verbose_name='支持退换货')
     order_value = models.IntegerField(default=0, verbose_name='排序值')
     view_count  = models.IntegerField(default=0, verbose_name='浏览量')
-    details     = models.TextField(verbose_name='详情')
+    details     = models.TextField(verbose_name='详情', null=True, blank=True)
     is_abort    = models.BooleanField(default=False, verbose_name='是否删除')
 
     class Meta: 
@@ -116,4 +120,4 @@ class Goods(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return "{}{}{}{}".format(self.brand.name,self.category.name,self.color.name,self.size.size)
