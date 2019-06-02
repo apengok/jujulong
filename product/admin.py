@@ -65,5 +65,5 @@ class CategoryAdmin(admin.ModelAdmin):
         return qs.filter(is_abort=False)
 
 
-admin.site.register(Goods, GoodsAdmin)
-admin.site.register(Category, CategoryAdmin)
+#admin.site.register(Goods, GoodsAdmin)
+#admin.site.register(Category, CategoryAdmin)

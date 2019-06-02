@@ -1,9 +1,9 @@
-from .development import *
+#from .development import *
 # from .base import *
 
 # from .base_win64 import *
 
-# from .production import *
+from .production import *
 
 # try:
 #    from .local import *

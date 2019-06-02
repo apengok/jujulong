@@ -57,15 +57,7 @@ INSTALLED_APPS = [
     'mptt',
     'import_export',
     'accounts',
-    'legacy',
-    'entm',
-    'gis',
-    'dmam',
-    'django_apscheduler',
-    'monitor',
-    'analysis',
-    'reports',
-    
+    'product',  
 ]
 
 
@@ -86,12 +78,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'scadadma.urls'
+ROOT_URLCONF = 'jujulong.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates"),os.path.join(BASE_DIR,"echarts","map","province")],
+        'DIRS': [os.path.join(BASE_DIR,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,11 +97,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'scadadma.wsgi.application'
+WSGI_APPLICATION = 'jujulong.wsgi.application'
 
 # IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-# ASGI_APPLICATION = "scadadma.routing.application"
+# ASGI_APPLICATION = "jujulong.routing.application"
 
 # Database
 # yum install mysql mysql-devel mysql-lib
@@ -122,15 +114,15 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'virvo_dev2.db'),
     # },
     'default': { 
-        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
-        'NAME': 'zncb',
-        'USER': 'scada',
-        'PASSWORD': 'scada',
-        'HOST': '192.168.1.27',    #120.78.255.129 192.168.197.134
-        'PORT': '3306',
-        'STORAGE_ENGINE': 'INNODB',
-        'OPTIONS': {'charset': 'utf8mb4'},
-        'TEST_CHARSET': 'utf8mb4',
+        'ENGINE': 'django.db.backends.postgresql'  ,#or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
+        'NAME': 'jujulong',
+        'USER': 'juju',
+        'PASSWORD': 'sweet',
+        'HOST': 'localhost',  #'172.27.0.17',    #148.70.49.196  120.78.255.129 192.168.197.134
+        'PORT': '5432',
+       # 'STORAGE_ENGINE': 'INNODB',
+       # 'OPTIONS': {'charset': 'utf8mb4'},
+       # 'TEST_CHARSET': 'utf8mb4',
     },
     
     # 'gis': { http://120.78.255.129
@@ -163,8 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'accounts.MyUser' #change buikld-in user model to us
-# AUTH_GROUP_MODEL = 'accounts.MyRoles'
+AUTH_USER_MODEL = 'accounts.UserProfile' #change buikld-in user model to us
 
 LOGIN_URL = '/login/'
 LOGIN_URL_REDIRECT = '/'
@@ -188,8 +179,8 @@ USE_TZ = False
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 #add geospatial something
-GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
-GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
+#GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+#GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -199,7 +190,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
-    os.path.join(BASE_DIR,"echarts","map","province"),
+    #os.path.join(BASE_DIR,"echarts","map","province"),
 ]
 
 MEDIA_URL = '/media/'
