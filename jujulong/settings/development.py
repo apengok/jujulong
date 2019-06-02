@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'mptt',
     'import_export',
     'accounts',
@@ -109,10 +110,21 @@ WSGI_APPLICATION = 'jujulong.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
+    'default': { 
+        'ENGINE': 'django.db.backends.mysql',#postgresql_psycopg2  or django.contrib.gis.db.backends.postgis or django.db.backends.postgresql_psycopg2
+        'NAME': 'jujulong',
+        'USER': 'juju',
+        'PASSWORD': 'sweet',
+        'HOST': '192.168.1.27',    #120.78.255.129 192.168.197.134
+        'PORT': '3306',
+        'STORAGE_ENGINE': 'INNODB',
+        'OPTIONS': {'charset': 'utf8mb4'},
+        'TEST_CHARSET': 'utf8mb4',
+    },
     
     
     # 'gis': { http://120.78.255.129

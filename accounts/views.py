@@ -11,6 +11,7 @@ from scadadma.mixins import NextUrlMixin, RequestFormAttachMixin
 
 # Create your views here.
 
+
 #LoginRequiredMixin,
 class AccountHomeView(LoginRequiredMixin, DetailView):
     template_name = 'accounts/home.html'

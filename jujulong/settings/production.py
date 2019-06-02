@@ -57,7 +57,13 @@ INSTALLED_APPS = [
     'mptt',
     'import_export',
     'accounts',
+<<<<<<< HEAD
     'product',  
+=======
+    'product',
+    
+    
+>>>>>>> 85f99c6fcfecd25800985c3b603a0cc8915ac723
 ]
 
 
@@ -66,7 +72,7 @@ AUTHENTICATION_BACKENDS = (
     # 'guardian.backends.ObjectPermissionBackend',
 )
 
-X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8080/'
+# X_FRAME_OPTIONS = 'ALLOW-FROM http://220.179.118.150:8080/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,7 +89,11 @@ ROOT_URLCONF = 'jujulong.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': [os.path.join(BASE_DIR,"templates")],
+=======
+        'DIRS': [os.path.join(BASE_DIR,"templates"),],
+>>>>>>> 85f99c6fcfecd25800985c3b603a0cc8915ac723
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -156,6 +166,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'accounts.UserProfile' #change buikld-in user model to us
+<<<<<<< HEAD
+=======
+# AUTH_GROUP_MODEL = 'accounts.MyRoles'
+>>>>>>> 85f99c6fcfecd25800985c3b603a0cc8915ac723
 
 LOGIN_URL = '/login/'
 LOGIN_URL_REDIRECT = '/'
@@ -179,8 +193,13 @@ USE_TZ = False
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 #add geospatial something
+<<<<<<< HEAD
 #GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
 #GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
+=======
+# GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+# GDAL_LIBRARY_PATH = '/usr/local/lib/libgdal.so'
+>>>>>>> 85f99c6fcfecd25800985c3b603a0cc8915ac723
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -190,7 +209,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
+<<<<<<< HEAD
     #os.path.join(BASE_DIR,"echarts","map","province"),
+=======
+    # os.path.join(BASE_DIR,"echarts","map","province"),
+>>>>>>> 85f99c6fcfecd25800985c3b603a0cc8915ac723
 ]
 
 MEDIA_URL = '/media/'
